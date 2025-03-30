@@ -1,0 +1,13 @@
+const express = require('express')
+const { UploadResume, upload } = require('../controller/uploadResume')
+const { SignIn, SigninUserData } = require('../controller/signin')
+const { SignUp } = require('../controller/signup')
+const { VerifyToken } = require('../middleware/verifyUser')
+const { JobDescription } = require('../controller/getJobDescription')
+const router = express.Router()
+router.put('/uploadResume',upload.single("resume"), UploadResume)
+router.post('/signin', SignIn)
+router.post('/signup', SignUp)
+router.post('/verifyToken', VerifyToken, SigninUserData)
+router.post('/get_job_description',JobDescription)
+module.exports = router

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react'
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar.jsx'
 import { Route, Routes } from 'react-router-dom'
-import Home from './components/Home'
-import JobDescription from './components/JobDescription'
-import Results from './components/Results'
-import Dashboard from './components/Dashboard'
-import AdminRoute from './protectedRoute/AdminRoute'
-import { Context } from './common/Context'
-import Signin from './components/Signin'
-import Signup from './components/Signup'
+import Home from './components/Home.jsx'
+import JobDescription from './components/JobDescription.jsx'
+import Results from './components/Results.jsx'
+import Dashboard from './components/Dashboard.jsx'
+import AdminRoute from './protectedRoute/AdminRoute.jsx'
+import { Context } from './common/Context.jsx'
+import Signin from './components/Signin.jsx'
+import Signup from './components/Signup.jsx'
 const App = () => {
   const { fetchData } = useContext(Context)
   useEffect(() => {

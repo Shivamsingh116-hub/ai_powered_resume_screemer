@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from "../Modal";
 import { Context } from "../common/Context";
 const apiUrl = import.meta.env.VITE_API_URL
 const Signup = () => {

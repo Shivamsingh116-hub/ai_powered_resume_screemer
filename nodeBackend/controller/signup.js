@@ -1,5 +1,5 @@
 const UserDataModel = require("../database/userData")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const SignUp = async (req, res) => {
     const { name, email, password } = req.body
     const isUser = await UserDataModel.findOne({ email })

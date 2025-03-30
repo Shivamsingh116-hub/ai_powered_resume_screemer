@@ -5,10 +5,10 @@ import Home from './components/Home'
 import JobDescription from './components/JobDescription'
 import Results from './components/Results'
 import Dashboard from './components/Dashboard'
-import SignUp from './components/Signup'
 import AdminRoute from './protectedRoute/AdminRoute'
 import { Context } from './common/Context'
 import SignIn from './components/Signin'
+import SignUp from './components/Signup'
 
 
 const App = () => {

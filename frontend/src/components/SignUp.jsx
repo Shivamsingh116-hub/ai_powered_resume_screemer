@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Modal from "../Modal";
 import { Context } from "../common/Context";
 const apiUrl = import.meta.env.VITE_API_URL
-function SignUp() {
+const Signup = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -130,4 +130,4 @@ function SignUp() {
     );
 }
 
-export default SignUp;
+export default Signup;

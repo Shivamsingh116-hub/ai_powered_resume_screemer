@@ -7,10 +7,8 @@ import Results from './components/Results'
 import Dashboard from './components/Dashboard'
 import AdminRoute from './protectedRoute/AdminRoute'
 import { Context } from './common/Context'
-import SignIn from './components/Signin'
-import SignUp from './components/Signup'
-
-
+import Signin from './components/Signin'
+import Signup from './components/Signup'
 const App = () => {
   const { fetchData } = useContext(Context)
   useEffect(() => {
@@ -26,8 +24,8 @@ const App = () => {
         <Route element={<AdminRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
-        <Route path='/signin' element={<SignIn />} />
-        <Route path='/signup' element={<SignUp />} />
+        <Route path='/signin' element={<Signin />} />
+        <Route path='/signup' element={<Signup />} />
 
       </Routes>
     </div>

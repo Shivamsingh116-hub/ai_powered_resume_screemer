@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../common/Context";
 import { jwtDecode } from 'jwt-decode'
 const apiUrl = import.meta.env.VITE_API_URL;
-function SignIn() {
+const Signin = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
-    const {  setPopupModal, setCurrentUser, setMessage, setLoading } = useContext(Context);
+    const { setPopupModal, setCurrentUser, setMessage, setLoading } = useContext(Context);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -95,4 +95,4 @@ function SignIn() {
     );
 }
 
-export default SignIn;
+export default Signin;

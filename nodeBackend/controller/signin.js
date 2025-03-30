@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const UserDataModel = require('../database/userData');
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
@@ -11,7 +11,7 @@ const SignIn = async (req, res) => {
     if (!email || !password) {
         return res.status(400).send({ message: "Please fill all the fields" })
     }
-    const comparePassword = await bcrypt.compare(password, isUser.password);
+    const comparePassword =bcrypt.compareSync(password, isUser.password);
     if (!comparePassword) {
         return res.status(400).send({ message: "Invalid credentials" })
     }

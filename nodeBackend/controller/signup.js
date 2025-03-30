@@ -16,9 +16,9 @@ const SignUp = async (req, res) => {
     }
     res.status(200).send({ message: "Signed in successfully" })
 }
-const hashPassword = async (password) => {
-    const saltRounds =await bcrypt.genSalt(12)
-    const hashedPassword = await bcrypt.hash(password, saltRounds)
+const hashPassword =  (password) => {
+    const saltRounds =bcrypt.genSaltSync(12)
+    const hashedPassword = bcrypt.hashSync(password, saltRounds)
     return hashedPassword
 }
 module.exports = { SignUp }

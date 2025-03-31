@@ -1,10 +1,11 @@
 const JobDescriptionModel = require("../database/jobDescriptiondata");
+const UserDataModel = require("../database/userData");
 
 const JobDescription = async (req, res) => {
     try {
-        const { title, company, location, description, skills, education } = req.body;
+        const { title, company, location, description, skills, education, experience, age } = req.body;
 
-        if (!title || !company || !location || !description) {
+        if (!title || !company || !location || !description || !age) {
             return res.status(400).json({ message: "All required fields must be provided" });
         }
 
@@ -15,6 +16,8 @@ const JobDescription = async (req, res) => {
             description,
             skills,
             education,
+            experience,
+            age,
         });
 
         return res.status(201).json({ message: "Job created successfully", job: createJob });
@@ -23,5 +26,15 @@ const JobDescription = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+const GetJobDescription = async (req, res) => {
+    try {
+        const response = await JobDescriptionModel.find();
+        const reversedResponse = response.reverse()
+        res.status(200).json(reversedResponse)
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: "Internal Server Error" })
+    }
+};
 
-module.exports = { JobDescription };
+module.exports = { JobDescription, GetJobDescription };

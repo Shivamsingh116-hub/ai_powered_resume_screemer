@@ -10,7 +10,6 @@ const JobDescriptionSchema = new mongoose.Schema({
     },
     location: {
         type: String,
-
     },
     description: {
         type: String,
@@ -20,6 +19,13 @@ const JobDescriptionSchema = new mongoose.Schema({
     },
     education: {
         type: String,
+    },
+    experience: {
+        type: Number,
+    },
+    age: {
+        type: Number,
+        required: true
     },
     createdAt: {
         type: Date,

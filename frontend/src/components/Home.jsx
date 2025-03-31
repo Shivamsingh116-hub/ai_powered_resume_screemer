@@ -14,7 +14,6 @@ const Home = () => {
     setSelectFile(file);
 
   };
-
   const uploadResume = async () => {
     if (!selectFile) {
       alert("Please select a file to upload!");

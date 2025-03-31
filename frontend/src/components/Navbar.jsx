@@ -14,19 +14,21 @@ const navItem = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { popupModal, loading, message, currentUser, setPopupModal, setCurrentUser } = useContext(Context)
+  const { popupModal, loading, message, currentUser, setPopupModal, setCurrentUser, fetchResume } = useContext(Context)
   const navigate = useNavigate()
   const location = useLocation()
   const handleSignin = () => {
+    fetchResume()
     navigate("/signin");
   }
   const handleLogout = () => {
     localStorage.removeItem("token")
     setCurrentUser(null)
+    fetchResume()
     navigate("/signin")
   }
   useEffect(() => {
-    const menuHandle=()=>{
+    const menuHandle = () => {
       setIsOpen(false)
     }
     menuHandle()

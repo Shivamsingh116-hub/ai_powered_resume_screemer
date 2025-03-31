@@ -27,15 +27,16 @@ const ContextProvider = ({ children }) => {
     };
     const fetchResume = async () => {
         if (!currentUser) {
+            setResume(null)
             return
         }
         try {
             const response = await axios.post(`${apiUrl}/get_resume`, { id: currentUser.id })
-            if(response.data.resume){
-                setResume(response.data.resume)          
+            if (response.data.resume) {
+                setResume(response.data.resume)
             }
         } catch (e) {
-            if(e.response && e.response.status ===404){
+            if (e.response && e.response.status === 404) {
                 setResume(null)
             }
             console.log(e)
@@ -50,9 +51,9 @@ const ContextProvider = ({ children }) => {
     }, [])
     const contextValue = useMemo(() => ({
         popupModal, setPopupModal, currentUser, setCurrentUser, message,
-        setMessage, setToken, loading, setLoading, fetchData,resume,
-        setResume,fetchResume
-    }), [popupModal, currentUser, message, loading,resume])
+        setMessage, setToken, loading, setLoading, fetchData, resume,
+        setResume, fetchResume
+    }), [popupModal, currentUser, message, loading, resume])
 
     return (
         <Context.Provider value={contextValue}>

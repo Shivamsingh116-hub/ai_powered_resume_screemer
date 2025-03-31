@@ -26,4 +26,22 @@ const UploadResume = async (req, res) => {
         return res.status(500).send({ message: "Internal server error" })
     }
 }
-module.exports = { UploadResume, upload }
+
+const get_resume = async (req, res) => {
+    const { id } = req.body
+    try {
+        const response = await UserDataModel.findById(id)
+        console.log(response.resume)
+        if (!response) {
+            return res.status(401).send({ message: "User not found" })
+        } else if (!response.resume) {
+            return res.status(404).send({ message: "Resume not uploaded" })
+        } else {
+            return res.status(201).send({ resume: response.resume })
+        }
+    } catch (e) {
+        console.log(e)
+        return res.status(500).send({ message: "internal server error" })
+    }
+}
+module.exports = { UploadResume, upload, get_resume }

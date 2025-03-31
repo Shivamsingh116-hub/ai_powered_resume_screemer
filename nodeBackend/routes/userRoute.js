@@ -1,5 +1,5 @@
 const express = require('express')
-const { UploadResume, upload } = require('../controller/uploadResume')
+const { UploadResume, upload, get_resume } = require('../controller/uploadResume')
 const { SignIn, SigninUserData } = require('../controller/signin')
 const { SignUp } = require('../controller/signup')
 const { VerifyToken } = require('../middleware/verifyUser')
@@ -10,4 +10,5 @@ router.post('/signin', SignIn)
 router.post('/signup', SignUp)
 router.post('/verifyToken', VerifyToken, SigninUserData)
 router.post('/get_job_description',JobDescription)
+router.post('/get_resume',get_resume)
 module.exports = router

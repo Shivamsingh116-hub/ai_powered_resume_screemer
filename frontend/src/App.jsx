@@ -10,9 +10,10 @@ import { Context } from './common/Context.jsx'
 import Signin from './components/Signin.jsx'
 import Signup from './components/Signup.jsx'
 const App = () => {
-  const { fetchData } = useContext(Context)
+  const { fetchData,fetchResume } = useContext(Context)
   useEffect(() => {
     fetchData()
+    fetchResume()
   }, [])
   return (
     <div>

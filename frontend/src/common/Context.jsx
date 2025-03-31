@@ -8,7 +8,7 @@ const ContextProvider = ({ children }) => {
     const [message, setMessage] = useState("")
     const [token, setToken] = useState(localStorage.getItem("token") || null);
     const [loading, setLoading] = useState(false)
-
+    const [resume, setResume] = useState(null)
     const fetchData = async () => {
         if (!token) return; // Avoid unnecessary API calls if token doesn't exist
 
@@ -25,14 +25,34 @@ const ContextProvider = ({ children }) => {
             setCurrentUser(null); // Ensure the user state is reset on failure
         }
     };
-
+    const fetchResume = async () => {
+        if (!currentUser) {
+            return
+        }
+        try {
+            const response = await axios.post(`${apiUrl}/get_resume`, { id: currentUser.id })
+            if(response.data.resume){
+                setResume(response.data.resume)          
+            }
+        } catch (e) {
+            if(e.response && e.response.status ===404){
+                setResume(null)
+            }
+            console.log(e)
+        }
+    }
+    useEffect(() => {
+        fetchResume()
+    }, [currentUser])
     useEffect(() => {
         fetchData()
+
     }, [])
     const contextValue = useMemo(() => ({
         popupModal, setPopupModal, currentUser, setCurrentUser, message,
-        setMessage, setToken, loading, setLoading, fetchData
-    }), [popupModal, currentUser, message, loading])
+        setMessage, setToken, loading, setLoading, fetchData,resume,
+        setResume,fetchResume
+    }), [popupModal, currentUser, message, loading,resume])
 
     return (
         <Context.Provider value={contextValue}>

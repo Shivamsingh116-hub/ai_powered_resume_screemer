@@ -6,13 +6,13 @@ const path = require('path')
 const router = require('./routes/userRoute')
 const Connection = require('./database/dbConnection')
 const server = http.createServer(app)
+require('dotenv').config()
 app.use(CORS(
     {
         origin: [process.env.LOCALHOST_URL, process.env.FRONTEND_URL],
         credentials: true
     }
 ))
-require('dotenv').config()
 const port = process.env.PORT
 app.use(express.json())
 app.use(router)

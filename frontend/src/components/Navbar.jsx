@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import Modal from "../Modal";
-import Loading from "../common/Loading";
 import { Context } from "../common/Context";
 import LogoutIcon from '@mui/icons-material/Logout';
 const navItem = [
@@ -14,7 +13,7 @@ const navItem = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { popupModal, loading, message, currentUser, setPopupModal, setCurrentUser, fetchResume } = useContext(Context)
+  const { popupModal, message, currentUser, setPopupModal, setCurrentUser, fetchResume } = useContext(Context)
   const navigate = useNavigate()
   const location = useLocation()
   const handleSignin = () => {
@@ -44,7 +43,7 @@ const Navbar = () => {
           }`}
       >
         {navItem.map((item, index) => (
-          <li key={index} className="text-lg hover:cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105">
+          <li onClick={()=>setIsOpen(false)} key={index} className="text-lg hover:cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105">
             <Link className="hover:font-medium text-gray-800" to={item.path}>
               {item.label}
             </Link>
@@ -60,7 +59,7 @@ const Navbar = () => {
         </button>
       </div>
       {popupModal && <Modal message={message} onClose={() => setPopupModal(false)} duration={3000} />}
-      {loading && <Loading />}
+      
     </nav>
   );
 };

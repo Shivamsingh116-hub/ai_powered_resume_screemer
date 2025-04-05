@@ -9,6 +9,8 @@ const ContextProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem("token") || null);
     const [loading, setLoading] = useState(false)
     const [resume, setResume] = useState(null)
+    const [result, setResult] = useState(null)
+    const [allResult, setAllResult] = useState([])
     const fetchData = async () => {
         if (!token) return; // Avoid unnecessary API calls if token doesn't exist
 
@@ -52,8 +54,8 @@ const ContextProvider = ({ children }) => {
     const contextValue = useMemo(() => ({
         popupModal, setPopupModal, currentUser, setCurrentUser, message,
         setMessage, setToken, loading, setLoading, fetchData, resume,
-        setResume, fetchResume
-    }), [popupModal, currentUser, message, loading, resume])
+        setResume, fetchResume, setResult, result, allResult, setAllResult
+    }), [popupModal, currentUser, message, loading, resume, result, allResult])
 
     return (
         <Context.Provider value={contextValue}>

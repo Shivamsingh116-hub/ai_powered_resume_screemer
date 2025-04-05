@@ -9,8 +9,15 @@ import AdminRoute from './protectedRoute/AdminRoute.jsx'
 import { Context } from './common/Context.jsx'
 import Signin from './components/Signin.jsx'
 import Signup from './components/Signup.jsx'
+import Loading from './common/Loading.jsx'
+const pythonUrl = import.meta.env.VITE_PYTHON_API_URL
 const App = () => {
-  const { fetchData,fetchResume } = useContext(Context)
+  const { fetchData, fetchResume, loading } = useContext(Context)
+  useEffect(() => {
+    fetch(`${VITE_PYTHON_API_URL}/wakeup`)
+      .then((res) => console.log("Backend wake-up signal sent!"))
+      .catch((err) => console.error("Backend wake-up failed", err));
+  }, []);
   useEffect(() => {
     fetchData()
     fetchResume()
@@ -28,6 +35,7 @@ const App = () => {
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
+      {loading && <Loading />}
     </div>
   )
 }

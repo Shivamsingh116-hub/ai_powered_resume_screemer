@@ -8,13 +8,18 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const Home = () => {
   const [selectFile, setSelectFile] = useState(null);
   const [loading, setLoadingContainer] = useState(false);
-  const { currentUser, resume, fetchResume, setLoading } = useContext(Context)
+  const { currentUser, resume, fetchResume, setLoading, setMessage, setPopupModal } = useContext(Context)
+  console.log(resume)
   const handleFilename = (e) => {
     const file = e.target.files[0];
     setSelectFile(file);
-
   };
   const uploadResume = async () => {
+    if (!currentUser) {
+      setMessage("Sign in to unlock features!")
+      setPopupModal(true)
+      return
+    }
     if (!selectFile) {
       alert("Please select a file to upload!");
       return;

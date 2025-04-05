@@ -4,7 +4,7 @@ const app = express()
 const CORS = require('cors')
 const path = require('path')
 const router = require('./routes/userRoute')
-const Connection = require('./database/dbConnection')
+const mongoose = require('./database/dbConnection')
 const server = http.createServer(app)
 require('dotenv').config()
 app.use(CORS(

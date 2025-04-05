@@ -31,7 +31,6 @@ const get_resume = async (req, res) => {
     const { id } = req.body
     try {
         const response = await UserDataModel.findById(id)
-        console.log(response.resume)
         if (!response) {
             return res.status(401).send({ message: "User not found" })
         } else if (!response.resume) {

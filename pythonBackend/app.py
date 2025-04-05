@@ -11,9 +11,5 @@ app.register_blueprint(resume_analysis)
 def test():
     return jsonify({"message":"WORKING"}),200
 
-
-@resume_analysis.route('/wakeup', methods=['GET'])
-def wakeup():
-    return jsonify({"message": "Backend is alive!"}), 200
 if __name__ == "__main__":
     app.run(debug=False)

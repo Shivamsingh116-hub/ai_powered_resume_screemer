@@ -5,6 +5,10 @@ from bson import ObjectId
 
 resume_analysis = Blueprint("resume_analysis", __name__)
 
+@resume_analysis.route('/wakeup', methods=['GET'])
+def wakeup():
+    return jsonify({"message": "Backend is alive!"}), 200
+
 @resume_analysis.route("/resume_analysis", methods=["GET"])
 def get_description_data():
     try:

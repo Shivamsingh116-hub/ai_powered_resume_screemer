@@ -1,14 +1,19 @@
 import axios from 'axios'
 import React, { useContext, useEffect } from 'react'
 import { Context } from '../common/Context'
+import { useLocation } from 'react-router-dom'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
 const Results = () => {
   const { currentUser, setAllResult, allResult, result, setResult, setLoading } = useContext(Context)
-
+  const location = useLocation()
   const fetchResult = async () => {
-    if (!currentUser?.id) return
+    if (!currentUser || !currentUser.id) {
+      setResult(null)
+      setAllResult([])
+      return
+    }
     try {
       setLoading(true)
       const response = await axios.get(`${apiUrl}/job_description_id?userId=${currentUser.id}`)
@@ -22,7 +27,7 @@ const Results = () => {
 
   useEffect(() => {
     fetchResult()
-  }, [currentUser])
+  }, [currentUser, location.pathname])
 
   const missingSkills = result?.required_skills?.filter(
     skill => !result.matched_skills.includes(skill)
@@ -129,7 +134,7 @@ const Results = () => {
             <h3 className="text-xl font-semibold text-gray-700">No Previous Results Found</h3>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1  gap-4">
             {previousResults.map(item => (
               console.log(item),
               <div
@@ -150,7 +155,7 @@ const Results = () => {
                 >
                   View Details
                 </button>
-                <p className= 'text-sm text-green-400 font-semibold absolute bottom-[-5px] right-3'>{item.submission_time}</p>
+                <p className='text-sm text-green-400 font-semibold absolute my-2 bottom-0 right-3'>{item.submission_time}</p>
 
               </div>
             ))}

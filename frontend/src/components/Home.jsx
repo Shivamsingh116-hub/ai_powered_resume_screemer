@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Loading from "../common/Loading"; // Import Loading component
 import axios from "axios";
 import { Context } from "../common/Context";
@@ -8,8 +8,10 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const Home = () => {
   const [selectFile, setSelectFile] = useState(null);
   const [loading, setLoadingContainer] = useState(false);
-  const { currentUser, resume, fetchResume, setLoading, setMessage, setPopupModal } = useContext(Context)
+  const { currentUser, resume, fetchResume, setLoading, setMessage, setPopupModal, resumeExist } = useContext(Context)
   console.log(resume)
+
+
   const handleFilename = (e) => {
     const file = e.target.files[0];
     setSelectFile(file);
@@ -71,14 +73,15 @@ const Home = () => {
         {loading && <Loading />}
         <h2 className="text-2xl mb-5">Your Uploaded Resume..</h2>
         {resume ? (
-          <iframe
+          resumeExist ? (<iframe
             src={`${apiUrl}/${resume}`}
             className="responsive-iframe flex justify-center items-center"
             width="100%"
             height="100%"
             onLoad={() => setLoadingContainer(false)}
-          ></iframe>
-        ) : <p>No resume Uploaded</p>}
+          ></iframe>) : (<p>Resume is stored on the device you uploaded from.
+            To work with it on this device, please upload your resume again </p>)
+        ) : (<p>No resume Uploaded</p>)}
       </div>
     </div>
   );

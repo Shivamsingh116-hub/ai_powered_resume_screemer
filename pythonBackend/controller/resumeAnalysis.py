@@ -20,8 +20,10 @@ def handle_resume_analysis(job, resume,userId):
     if not text:
         return {"error": "Failed to extract text from resume."}
     
+    check_isresume=is_resume(text)
+    if not check_isresume:
+        return {'message':"The uploaded file is not a valid resume."}
     doc = nlp(text)
-    
     resume_skills = extract_main_text(doc)
     required_skills = extract_required_skills(jobData['skills'])
 
@@ -32,7 +34,7 @@ def handle_resume_analysis(job, resume,userId):
     experience_score = score_experience(experience_years, jobData.get("experience", 0))
     education_score = score_education(education, jobData.get("education", ""))
     project_score = score_projects(project_keywords, jobData.get("project_keywords", ""))
-
+    
     total_score = calculate_total_score(skill_score, experience_score, education_score, project_score)
     submission_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return {
@@ -69,12 +71,17 @@ def extract_text_from_pdf(pdf_url):
         print(f"Failed to fetch file from {pdf_url}")
         return None
 
+def is_resume(text):
+    keywords = ["experience", "education", "skills", "projects", "certifications", "summary", "objective"]
+    found=sum(1 for words in keywords if words.lower() in text.lower())
+    print(found,"found")
+    return found >= 3
 
 def extract_main_text(doc):
     tokens = [token.text for token in doc if re.search(r'[A-Za-z0-9]', token.text)]
     cleaned_tokens = [re.sub(r'[^A-Za-z+]', '', token).lower() for token in tokens]
     cleaned_skills = [re.sub(r'[^A-Za-z+]', '', skill).lower() for skill in SKILLS]
-    matched_skills = [skill for token in cleaned_tokens for skill in cleaned_skills if token.startswith(skill) and len(token) >=len(skill) ]
+    matched_skills = [skill for token in cleaned_tokens for skill in cleaned_skills if  token == skill ]
     return list(set(matched_skills))
 
 def extract_required_skills(job_skills):

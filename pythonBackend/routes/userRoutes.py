@@ -22,9 +22,13 @@ def get_description_data():
         db = db_connection()
         resultData = db["resultData"]
         result_data = handle_resume_analysis(job, resume, userId)
-
         if not result_data:
             return jsonify({"message": "No data found"}), 400
+        
+        if result_data.get("message"):
+            return jsonify({'message':result_data.get("message")}),422
+        if result_data.get("error"):
+            return jsonify({'error':result_data.get("error")}),500
         
         findUserResult=resultData.find({"user_id":result_data.get("user_id")})
         for result in findUserResult:

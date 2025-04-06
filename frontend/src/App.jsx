@@ -14,7 +14,7 @@ const pythonUrl = import.meta.env.VITE_PYTHON_API_URL
 const App = () => {
   const { fetchData, fetchResume, loading } = useContext(Context)
   useEffect(() => {
-    fetch(`${VITE_PYTHON_API_URL}/wakeup`)
+    fetch(`${pythonUrl}/wakeup`)
       .then((res) => console.log("Backend wake-up signal sent!"))
       .catch((err) => console.error("Backend wake-up failed", err));
   }, []);

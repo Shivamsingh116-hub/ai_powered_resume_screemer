@@ -59,7 +59,11 @@ const JobDescription = () => {
         } else if (e.response && e.response.status === 400) {
           setMessage(e.response.data.message)
           setPopupModal(true)
-        } else {
+        } else if (e.response && e.response.status === 422) {
+          setMessage(e.response.data.message)
+          setPopupModal(true)
+        }
+        else {
           setMessage("Internal server error!")
           setPopupModal(true)
         }

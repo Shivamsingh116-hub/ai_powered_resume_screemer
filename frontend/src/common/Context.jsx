@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 export const Context = createContext()
 const apiUrl = import.meta.env.VITE_API_URL
 const ContextProvider = ({ children }) => {
@@ -11,6 +12,8 @@ const ContextProvider = ({ children }) => {
     const [resume, setResume] = useState(null)
     const [result, setResult] = useState(null)
     const [allResult, setAllResult] = useState([])
+    const[resumeExist,setResumeExist]=useState(true)
+    const location = useLocation()
     const fetchData = async () => {
         if (!token) return; // Avoid unnecessary API calls if token doesn't exist
 
@@ -45,8 +48,14 @@ const ContextProvider = ({ children }) => {
         }
     }
     useEffect(() => {
+        const resumeUrl = `${apiUrl}/${resume}`
+        fetch(resumeUrl, { method: "HEAD" }).then(((res) =>
+            setResumeExist(res.ok)
+        )).catch(() => setResumeExist(false))
+    }, [apiUrl, resume])
+    useEffect(() => {
         fetchResume()
-    }, [currentUser])
+    }, [currentUser, location.pathname])
     useEffect(() => {
         fetchData()
 
@@ -54,8 +63,8 @@ const ContextProvider = ({ children }) => {
     const contextValue = useMemo(() => ({
         popupModal, setPopupModal, currentUser, setCurrentUser, message,
         setMessage, setToken, loading, setLoading, fetchData, resume,
-        setResume, fetchResume, setResult, result, allResult, setAllResult
-    }), [popupModal, currentUser, message, loading, resume, result, allResult])
+        setResume, fetchResume, setResult, result, allResult, setAllResult,resumeExist,setResumeExist
+    }), [popupModal, currentUser, message, loading, resume, result, allResult,resumeExist])
 
     return (
         <Context.Provider value={contextValue}>
